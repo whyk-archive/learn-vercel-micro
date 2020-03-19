@@ -1,0 +1,29 @@
+const { send } = require('micro')
+const { router, get } = require('microrouter')
+
+const DAMMY_DATA = [
+  {id: 1, name: 'Steven Paul "Steve" Jobs', founding: 'Apple Inc.'},
+  {id: 2, name: 'Stephen Gary Wozniak', founding: 'Apple Inc.'},
+  {id: 3, name: 'William Henry "Bill" Gates III', founding: 'Microsoft Corporation'},
+  {id: 4, name: 'Paul Gardner Allen', founding: 'Microsoft Corporation'},
+  {id: 5, name: 'Lawrence Edward "Larry" Page', founding: 'Google LLC'},
+  {id: 6, name: 'Sergey Mikhailovich Brin', founding: 'Google LLC'},
+  {id: 7, name: 'Inoue Masahiro', founding: 'Yahoo Japan Corporation'},
+  {id: 8, name: 'Son Masayoshi', founding: 'SoftBank Group Corp.'},
+  {id: 9, name: 'Mikitani Hiroshi', founding: 'Rakuten, Inc.'},
+  {id: 10, name: 'Nishimura Hiroyuki(HIROYUKI)', founding: '2ch.net'},
+]
+
+const api = (req, res) => {
+  if (req.headers['X-API-KEY'] === process.env.API_KEY) {
+    send(res, 200, DAMMY_DATA)
+  } else {
+    send(res, 403, `403 Forbidden`)
+  }
+}
+const notfound = (_, res) => send(res, 404, '404 Not Found')
+
+module.exports = router(
+  get('/api', api),
+  get('/*', notfound),
+)
