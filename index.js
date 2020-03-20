@@ -14,16 +14,19 @@ const DAMMY_DATA = [
   {id: 10, name: 'Nishimura Hiroyuki(HIROYUKI)', founding: '2ch.net'},
 ]
 
-const api = (req, res) => {
+const hello = async (_, res) => await send(res, 200, {get: 200})
+
+const api = async (req, res) => {
   if (req.headers['x-api-key'] === process.env.API_KEY) {
-    send(res, 200, DAMMY_DATA)
+    await send(res, 200, DAMMY_DATA)
   } else {
-    send(res, 403, `403 Forbidden`)
+    await send(res, 403, `403 Forbidden`)
   }
 }
-const notfound = (_, res) => send(res, 404, '404 Not Found')
+const notfound = async (_, res) => await send(res, 404, '404 Not Found')
 
 module.exports = router(
+  get('/hello', hello),
   get('/api', api),
   get('/*', notfound),
 )
