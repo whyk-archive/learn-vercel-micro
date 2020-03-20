@@ -15,7 +15,7 @@ const DAMMY_DATA = [
 ]
 
 const api = (req, res) => {
-  if (req.headers['X-API-KEY'] === process.env.API_KEY) {
+  if (req.headers['x-api-key'] === process.env.API_KEY) {
     send(res, 200, DAMMY_DATA)
   } else {
     send(res, 403, `403 Forbidden`)
