@@ -2,7 +2,7 @@ import { send } from 'micro'
 import { router, get } from 'microrouter'
 import type { ClientRequestArgs, ServerResponse } from 'http'
 
-const DAMMY_DATA = {
+const SAMPLE_DATA = {
   data: [
     {id: 1, name: 'Steven Paul "Steve" Jobs', founding: 'Apple Inc.'},
     {id: 2, name: 'Stephen Gary Wozniak', founding: 'Apple Inc.'},
@@ -21,7 +21,7 @@ const hello = async (_: ClientRequestArgs, res: ServerResponse): Promise<void> =
 
 const api = async (req: ClientRequestArgs, res: ServerResponse): Promise<void> => {
   if (req.headers['x-api-key'] === process.env.API_KEY) {
-    await send(res, 200, DAMMY_DATA)
+    await send(res, 200, SAMPLE_DATA)
   } else {
     await send(res, 403, `403 Forbidden`)
   }
