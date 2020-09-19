@@ -1,5 +1,6 @@
-const { send } = require('micro')
-const { router, get } = require('microrouter')
+import { send } from 'micro'
+import { router, get } from 'microrouter'
+import type { ClientRequestArgs, ServerResponse } from 'http'
 
 const DAMMY_DATA = {
   data: [
@@ -16,18 +17,18 @@ const DAMMY_DATA = {
   ]
 }
 
-const hello = async (_, res) => await send(res, 200, {get: 200})
+const hello = async (_: ClientRequestArgs, res: ServerResponse): Promise<void> => await send(res, 200, {get: 200})
 
-const api = async (req, res) => {
+const api = async (req: ClientRequestArgs, res: ServerResponse): Promise<void> => {
   if (req.headers['x-api-key'] === process.env.API_KEY) {
     await send(res, 200, DAMMY_DATA)
   } else {
     await send(res, 403, `403 Forbidden`)
   }
 }
-const notfound = async (_, res) => await send(res, 404, '404 Not Found')
+const notfound = async (_: ClientRequestArgs, res: ServerResponse): Promise<void> => await send(res, 404, '404 Not Found')
 
-module.exports = router(
+export default router(
   get('/hello', hello),
   get('/api', api),
   get('/*', notfound),
