@@ -1,13 +1,10 @@
 {
-  "name": "learn-zeit-micro",
-  "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
   "scripts": {
     "dev:compile": "node -r ts-node/register/transpile-only node_modules/.bin/micro-dev ./index.ts",
     "dev:server": "ngrok http 3000",
     "dev": "run-p dev:*"
   },
-  "license": "MIT",
   "dependencies": {
     "micro": "^9.3.4",
     "microrouter": "^3.1.3"
